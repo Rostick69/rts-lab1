@@ -52,3 +52,21 @@ def required_reaction_time(tasks):
     hard = hard_tasks(tasks)
     source = hard if hard else tasks
     return min(t.D for t in source)
+
+
+
+
+def utilization(tasks):
+    """Коэффициент загрузки процессора U = сумма(C / T)."""
+    return sum(t.C / t.T for t in tasks)
+
+
+def classify_architecture(n_cpu, has_network):
+    """Архитектурный класс системы по числу процессоров и наличию сети."""
+    # Сеть проверяем первой: узлы, связанные сетью, — это уже распределённая система,
+    # сколько бы процессоров ни было в каждом узле
+    if has_network:
+        return "распределённая"
+    if n_cpu > 1:
+        return "многопроцессорная"
+    return "однопроцессорная"
