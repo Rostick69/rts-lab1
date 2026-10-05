@@ -41,6 +41,7 @@ def load_variant(path):
 
         tasks.append(task)
 
+    title = data.get("title", "без названия")  # если названия в файле нет, программа не упадёт
     n_cpu = data["system"]["n_cpu"]
     has_network = data["system"]["has_network"]
-    return tasks, n_cpu, has_network
+    return title, tasks, n_cpu, has_network
