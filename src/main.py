@@ -17,9 +17,9 @@ DEFAULT_DATA = Path(__file__).parent.parent / "data" / "variant2.json"
 
 def main():
     path = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_DATA
-    tasks, n_cpu, has_network = load_variant(path)
+    title, tasks, n_cpu, has_network = load_variant(path)
 
-    print("Анализ системы реального времени: бортовая система автомобиля\n")
+    print(f"Анализ системы реального времени: {title}\n")
     print_table(tasks)
     print_conclusion(tasks, n_cpu, has_network)
 
