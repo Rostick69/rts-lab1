@@ -23,3 +23,32 @@ def deadline_type(task):
     if task.D < task.T:
         return "ограниченный"
     return "произвольный"
+
+
+
+
+def hard_tasks(tasks):
+    """Вспомогательная функция: только жёсткие задачи."""
+    return [t for t in tasks if t.hardness == HARD]
+
+
+def classify_system(tasks):
+    """Система жёсткого РВ, если есть хотя бы одна жёсткая задача, иначе мягкого."""
+    if hard_tasks(tasks):
+        return "жёсткого реального времени"
+    return "мягкого реального времени"
+
+
+def critical_task(tasks):
+    """Критическая задача — жёсткая задача с наименьшим запасом. None, если жёстких нет."""
+    hard = hard_tasks(tasks)
+    if not hard:
+        return None
+    return min(hard, key=slack)
+
+
+def required_reaction_time(tasks):
+    """R_треб = min(D) по жёстким задачам, а если их нет — по всем задачам."""
+    hard = hard_tasks(tasks)
+    source = hard if hard else tasks
+    return min(t.D for t in source)
